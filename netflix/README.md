@@ -12,7 +12,9 @@ License: [Creative Commons: Public Domain](https://creativecommons.org/publicdom
 
 In a CQLSH shell execute the following
 ```
-CREATE TABLE demo.netflix_master (
+CREATE KEYSPACE IF NOT EXISTS demo WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+
+CREATE TABLE IF NOT EXISTS demo.netflix_master (
     show_id int,
     cast list<text>,
     country list<text>,
@@ -28,7 +30,7 @@ CREATE TABLE demo.netflix_master (
     PRIMARY KEY ((title), show_id)
 );
 
-CREATE TABLE demo.netflix_titles_by_date (
+CREATE TABLE IF NOT EXISTS demo.netflix_titles_by_date (
     show_id int,
     date_added date,
     release_year int,
@@ -37,7 +39,7 @@ CREATE TABLE demo.netflix_titles_by_date (
 WITH CLUSTERING ORDER BY (date_added DESC);
 
 
-CREATE TABLE demo.netflix_titles_by_rating (
+CREATE TABLE IF NOT EXISTS demo.netflix_titles_by_rating (
     show_id int,
     rating text,
     title text,
@@ -62,7 +64,7 @@ Load data into `demo.netflix_titles_by_rating`
 dsbulk load -k demo -t netflix_titles_by_rating -url netflixdata-clean.csv --codec.date "MMMM d, y" -m "show_id,title,rating"
 ```
 
-### Query data
+### Read data
 
 Get all data from netflix_master
 ```
@@ -86,7 +88,7 @@ select title from demo.netflix_titles_by_date where release_year = 2019;
 
 Get all titles released in 2019 after June
 ```
-select title from demo.netflix_titles_by_date where release_year = 2019 and date_added > '2019-06-01'
+select title from demo.netflix_titles_by_date where release_year = 2019 and date_added > '2019-06-01';
 ```
 
 Get all titles rated G or TV-Y
@@ -96,4 +98,18 @@ select title from demo.netflix_titles_by_rating where rating IN ('G', 'TV-Y');
 
 ### Write new data
 
-TODO
+```
+insert into demo.netflix_master (title, show_id, cast, country, date_added, description, director, duration, listed_in, rating, release_year, type) values ('New show', 90000000, ['Tom Hardy'], ['United States'], '2020-04-12', 'Experiences of an awesome developer', ['Francis Ford Coppola'], '1 Season', ['Drama'], 'TV-14', 2020, 'TV Show');
+```
+```
+insert into demo.netflix_titles_by_date (title, show_id, release_year, date_added) values ('New show', 90000000, 2020, '2020-04-12');
+```
+```
+insert into demo.netflix_titles_by_rating (title, show_id, rating) values ('New show', 90000000, 'TV-14');
+```
+
+### Update existing data
+
+```
+update demo.netflix_master set duration = '4 Seasons' where title = 'La casa de papel' and show_id = 80192098;
+```
