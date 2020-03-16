@@ -81,12 +81,12 @@ select director from demo.netflix_master where title = 'Pulp Fiction';
 
 Get all titles released in 2019
 ```
-select title from demo.netflix_titles_by_date where release_year = '2019';
+select title from demo.netflix_titles_by_date where release_year = 2019;
 ```
 
-Get all titles released before 2017
+Get all titles released in 2019 after June
 ```
-select title from demo.netflix_titles_by_date where release_year < '2017';
+select title from demo.netflix_titles_by_date where release_year = 2019 and date_added > '2019-06-01'
 ```
 
 Get all titles rated G or TV-Y
