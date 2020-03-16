@@ -93,3 +93,7 @@ Get all titles rated G or TV-Y
 ```
 select title from demo.netflix_titles_by_rating where rating IN ('G', 'TV-Y');
 ```
+
+### Write new data
+
+TODO
