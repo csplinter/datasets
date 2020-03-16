@@ -38,12 +38,12 @@ dsbulk load -k demo -t netflix_master -url netflixdata-clean.csv --codec.date "M
 
 Load data into `demo.netflix_titles_by_date`
 ```
-dsbulk load -k demo -t netflix_titles_by_date -url netflixclean.csv --codec.date "MMMM d, y" -m "show_id,title,release_year,date_added"
+dsbulk load -k demo -t netflix_titles_by_date -url netflixdata-clean.csv --codec.date "MMMM d, y" -m "show_id,title,release_year,date_added"
 ```
 
 Load data into `demo.netflix_titles_by_rating`
 ```
-dsbulk load -k demo -t netflix_titles_by_rating -url netflixclean.csv --codec.date "MMMM d, y" -m "show_id,title,rating"
+dsbulk load -k demo -t netflix_titles_by_rating -url netflixdata-clean.csv --codec.date "MMMM d, y" -m "show_id,title,rating"
 ```
 
 ### Query data
