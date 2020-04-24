@@ -6,6 +6,7 @@ Source: https://www.kaggle.com/shivamb/netflix-shows
 
 License: [Creative Commons: Public Domain](https://creativecommons.org/publicdomain/zero/1.0/)
 
+[](#dd-001)
 ## Cassandra Tutorial
 
 ### Create database schema 
@@ -46,7 +47,7 @@ CREATE TABLE IF NOT EXISTS demo.netflix_titles_by_rating (
     PRIMARY KEY ((rating), show_id)
 );
 ```
-
+[](#dd-002)
 ### Load data 
 
 Load data into `demo.netflix_master`
@@ -63,7 +64,7 @@ Load data into `demo.netflix_titles_by_rating`
 ```
 dsbulk load -k demo -t netflix_titles_by_rating -url netflixdata-clean.csv --codec.date "MMMM d, y" -m "show_id,title,rating"
 ```
-
+[](#dd-003)
 ### Read data
 
 Get all data from netflix_master
@@ -96,6 +97,7 @@ Get all titles rated G or TV-Y
 select title from demo.netflix_titles_by_rating where rating IN ('G', 'TV-Y');
 ```
 
+[](#dd-004)
 ### Write new data
 
 ```
@@ -108,6 +110,7 @@ insert into demo.netflix_titles_by_date (title, show_id, release_year, date_adde
 insert into demo.netflix_titles_by_rating (title, show_id, rating) values ('New show', 90000000, 'TV-14');
 ```
 
+[](#dd-005)
 ### Update existing data
 
 ```
