@@ -11,7 +11,7 @@ License: [Creative Commons: Public Domain](https://creativecommons.org/publicdom
 
 ### Create database schema 
 
-In a CQLSH shell execute the following
+In a CQL Shell execute the following
 ```
 CREATE KEYSPACE IF NOT EXISTS demo WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
 
